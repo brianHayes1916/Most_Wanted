@@ -44,7 +44,7 @@ function mainMenu(person, people){
     let personFamily = "Family" + person.parents + currentSpouse.firstName + "\n";
     break;
     case "descendants":
-      people.Filter(x => x.parents.Filter(x => x.id == person.id))
+      // people.Filter(x => x.parents.Filter(x => x.id == person.id))
     let personDescendants = people.Filter(function(){
       if(people.parents.Contain(person)){
         return true;
@@ -77,7 +77,8 @@ function searchByName(people){
     }
   })
   // TODO: find the person using the name they entered
-  return foundPerson;
+  let actualFoundPerson = foundPerson[0];
+  return actualFoundPerson;
 }
 
 // alerts a list of people

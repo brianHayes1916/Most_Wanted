@@ -44,7 +44,15 @@ function mainMenu(person, people){
     let personFamily = "Family" + person.parents + currentSpouse.firstName + "\n";
     break;
     case "descendants":
-    let personDescendants = people.Filter(x => x.parents.Filter(x => x.id == person.id))
+      people.Filter(x => x.parents.Filter(x => x.id == person.id))
+    let personDescendants = people.Filter(function(){
+      if(people.parents.Contain(person)){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
     break;
     case "restart":
     app(people); // restart

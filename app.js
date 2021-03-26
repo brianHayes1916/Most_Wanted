@@ -84,7 +84,7 @@ function searchByName(people){
   let actualFoundPerson = foundPerson[0];
   return actualFoundPerson;
 }
-
+.
 function findDescendants(personWithDescendants, people){
   let personDescendants = people.filter(function(person){
     //if personwithdescendants's id is in a person's parents array, return true

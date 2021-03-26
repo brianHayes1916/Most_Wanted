@@ -20,17 +20,18 @@ function app(people){
           
           break;
         
-        case ''
-      }
+        case '':
+      
       
       break;
       default:
-    app(people); // restart app
+       app(people); // restart app
       break;
   }
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
+  }
 }
 
 // Menu function to call once you find who you are looking for
@@ -84,39 +85,41 @@ function searchByName(people){
   let actualFoundPerson = foundPerson[0];
   return actualFoundPerson;
 }
-.
+
 function findDescendants(personWithDescendants, people){
   let personDescendants = people.filter(function(person){
     //if personwithdescendants's id is in a person's parents array, return true
 
 
-    if(person == people.parents.filter(function(person){
-      if(parents.includes(person.id)){
-        return true;
-      }
-      else{
-        return false;
-      }
-    })){
+  //   if(person == people.parents.filter(function(person){
+  //     if(parents.includes(person.id)){
+  //       return true;
+  //     }
+  //     else{
+  //       return false;
+  //     }
+  //   })){
+  //     return true;
+  //   }
+  //   else{
+  //     return false;
+  //   }
+   }
+  )
+  alert(personDescendants);
+}
+
+function searchByHt(people){
+  let ht = promptfor("How tall is the person you're looking for?").parseInt();
+  let tallBoys = people.filter(function(ht){
+    if(ht == person.height){
       return true;
     }
     else{
       return false;
     }
+    //return tallBoys;
   })
-  alert(personDescendants);
-}
-
-function searchByHt(people){
-  let ht = promptfor("How tall is the person you're looking for?").ParseInt();
-        let tallBoys = people.Filter(function(ht){
-          if(ht == person.height){
-            return true;
-          }
-          else{
-            return false;
-          }
-          return tallBoys;
 }
 
 // alerts a list of people
@@ -125,6 +128,7 @@ function displayPeople(people){
     return person.firstName + " " + person.lastName;
   }).join("\n"));
 }
+
 
 function displayPerson(person){
   // print all of the information about a person:

@@ -12,7 +12,17 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
+      let promptResult = promptFor("Would you like to search by height, weight, or eye color?").toLowerCase();
+      switch(promptResult){
+        case 'height':
+        
+        searchResults = searchByHt(people);
+          
+          break;
+        
+        case ''
+      }
+      
       break;
       default:
     app(people); // restart app
@@ -45,14 +55,23 @@ function mainMenu(person, people){
     break;
     case "descendants":
       // people.Filter(x => x.parents.Filter(x => x.id == person.id))
-    let personDescendants = people.Filter(function(){
-      if(people.parents.Contain(person)){
+      
+    let personDescendants = people.Filter(function(person){
+      if(person == people.parents.Filter(function(person){
+        if(parents.Includes(person.id)){
+          return true;
+        }
+        else{
+          return false;
+        }
+      })){
         return true;
       }
       else{
         return false;
       }
     })
+    alert(personDescendants);
     break;
     case "restart":
     app(people); // restart
@@ -79,6 +98,18 @@ function searchByName(people){
   // TODO: find the person using the name they entered
   let actualFoundPerson = foundPerson[0];
   return actualFoundPerson;
+}
+
+function searchByHt(people){
+  let ht = promptfor("How tall is the person you're looking for?").ParseInt();
+        let tallBoys = people.Filter(function(ht){
+          if(ht == person.height){
+            return true;
+          }
+          else{
+            return false;
+          }
+          return tallBoys;
 }
 
 // alerts a list of people

@@ -37,14 +37,14 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    // TODO: get person's info
+    
     displayPerson(person);
     break;
     case "family":
-    // TODO: get person's family
+    let personFamily = "Family" + person.parents + currentSpouse.firstName + "\n";
     break;
     case "descendants":
-    // TODO: get person's descendants
+    let personDescendants = people.Filter(x => x.parents.Filter(x => x.id == person.id))
     break;
     case "restart":
     app(people); // restart

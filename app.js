@@ -55,23 +55,8 @@ function mainMenu(person, people){
     break;
     case "descendants":
       // people.Filter(x => x.parents.Filter(x => x.id == person.id))
-      
-    let personDescendants = people.Filter(function(person){
-      if(person == people.parents.Filter(function(person){
-        if(parents.Includes(person.id)){
-          return true;
-        }
-        else{
-          return false;
-        }
-      })){
-        return true;
-      }
-      else{
-        return false;
-      }
-    })
-    alert(personDescendants);
+      people.filter(x => x.parents.filter(x => x.id == person.id))
+    
     break;
     case "restart":
     app(people); // restart
@@ -98,6 +83,28 @@ function searchByName(people){
   // TODO: find the person using the name they entered
   let actualFoundPerson = foundPerson[0];
   return actualFoundPerson;
+}
+
+function findDescendants(personWithDescendants, people){
+  let personDescendants = people.filter(function(person){
+    //if personwithdescendants's id is in a person's parents array, return true
+
+
+    if(person == people.parents.filter(function(person){
+      if(parents.includes(person.id)){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  alert(personDescendants);
 }
 
 function searchByHt(people){

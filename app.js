@@ -41,7 +41,7 @@ function mainMenu(person, people){
       displayPerson(person);
       break;
     case "family":
-      findFamily(person);
+      findFamily(person, people);
       break;
     case "descendants":
       findDescendants(person, people);
@@ -56,9 +56,63 @@ function mainMenu(person, people){
   }
 }
 
-function findFamily(person){
-  let personFamily = "Family" + person.parents + currentSpouse.firstName + "\n";
-  displayPeople(personFamily);
+function findFamily(person, people){
+  let parents = findParents(person, people);
+  let spouse = findSpouse(person, people);
+  let siblings = findSiblings(person, people);
+  displayFamily(parents, spouse, siblings);
+}
+
+function displayFamily(parents, spouse, siblings){
+  let family = "Parents: " + parents + "\n";
+  family += "Spouse: " + spouse + "\n";
+  family += "Siblings: " + siblings + "\n";
+  alert(family);
+}
+
+function findParents(person, people){
+  let parents = people.filter(function(possibleParents){
+    if(person.parents == possibleParents.id){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  let fixedParents = (parents.map(function(person){
+    return person.firstName + " " + person.lastName;
+  }).join("\n"));
+  return fixedParents;
+}
+
+function findSpouse(person, people){
+  let spouse = people.filter(function(possibleSpouse){
+    if(person.currentSpouse == possibleSpouse.id){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  let fixedSpouse = (spouse.map(function(person){
+    return person.firstName + " " + person.lastName;
+  }).join("\n"));
+  return fixedSpouse;
+}
+
+function findSiblings(person, people){
+  let siblings = people.filter(function(possibleSibs){
+    if(possibleSibs.parents == person.parents){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  let fixedSiblings = (siblings.map(function(person){
+    return person.firstName + " " + person.lastName;
+  }).join("\n"));
+  return fixedSiblings;
 }
 
 function searchByName(people){
@@ -87,7 +141,6 @@ function findDescendants(personWithDescendants, people){
     else{
       return false;
     }
-  
    }
   )
   for(let i = 0; i < children.count; i++){

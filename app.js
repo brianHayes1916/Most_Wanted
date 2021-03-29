@@ -14,8 +14,7 @@ function app(people){
     case 'no':
       searchResults = filterTraits(people);
       break;    
-    
-      default:
+    default:
        app(people); // restart app
       break;
   }
@@ -46,7 +45,6 @@ function mainMenu(person, people){
       break;
     case "descendants":
       //people.filter(x => x.parents.filter(x => x.id == person.id))
-    
       break;
     case "restart":
       app(people); // restart
@@ -81,7 +79,14 @@ function searchByName(people){
 }
 
 function findDescendants(personWithDescendants, people){
-  let personDescendants = people.filter(function(person){
+  let children = people.filter(function(person){
+    if(person.parents == personWithDescendants.id){
+      return true;
+    }
+    else{
+      return false;
+    }
+  //let personDescendants = people.filter(function(person){
     //if personwithdescendants's id is in a person's parents array, return true
 
 
@@ -100,7 +105,9 @@ function findDescendants(personWithDescendants, people){
   //   }
    }
   )
-  alert(personDescendants);
+let grandchildren = people.filter(function(person){
+  if()
+})
 }
 
 function searchByTrait(people){
@@ -170,6 +177,7 @@ function searchByOcc(people){
   }
   return searchResults;
 }
+
 function findOcc(people, occ){
   let peopleWithOccupation = people.filter(function(person){
     if (person.occupation == occ){
@@ -222,6 +230,7 @@ function findEyeColor(people, color){
   })
   return peopleWithColor;
 }
+
 function searchByEye(people){
   let searchResults;
   let color = promptFor("What color eyes does the person you're looking for have?" , chars).toLowerCase();

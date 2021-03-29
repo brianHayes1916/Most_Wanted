@@ -12,15 +12,9 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      let promptResult = promptFor("Would you like to search by height, weight, or eye color?").toLowerCase();
-      switch(promptResult){
-        case 'height':
-        
-        searchResults = searchByHt(people);
-          
-          break;
-        
-        case '':
+      searchResults = searchByTrait(people);
+      break;    
+    case '':
       
       
       break;
@@ -31,8 +25,8 @@ function app(people){
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
-  }
 }
+
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
@@ -52,11 +46,10 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
-    let personFamily = "Family" + person.parents + currentSpouse.firstName + "\n";
+    findFamily(person);
     break;
     case "descendants":
-      // people.Filter(x => x.parents.Filter(x => x.id == person.id))
-      people.filter(x => x.parents.filter(x => x.id == person.id))
+      //people.filter(x => x.parents.filter(x => x.id == person.id))
     
     break;
     case "restart":
@@ -67,6 +60,11 @@ function mainMenu(person, people){
     default:
     return mainMenu(person, people); // ask again
   }
+}
+
+function findFamily(person){
+  let personFamily = "Family" + person.parents + currentSpouse.firstName + "\n";
+  displayPeople(personFamily);
 }
 
 function searchByName(people){
@@ -109,9 +107,37 @@ function findDescendants(personWithDescendants, people){
   alert(personDescendants);
 }
 
+function traitChoices(people){
+  let promptResult = promptFor("Would you like to search by height, weight, or eyes?").toLowerCase();
+      switch(promptResult){
+        case 'height':
+        searchResults = searchByHt(people);
+        break;
+     /* switch(promptResult){
+        case 'weight':
+        searchResults = searchByWgt(people);
+      switch(promptResult){
+        case 'eyes':
+        searchResults = searchByEye(people);
+      default:
+        traitChoices(people);
+      break;
+
+    */      
+      }  
+} 
+
+function searchByEye(people){
+
+}
+
+function searchByWgt(people){
+
+}
+
 function searchByHt(people){
   let ht = promptfor("How tall is the person you're looking for?").parseInt();
-  let tallBoys = people.filter(function(ht){
+  let tallBoys = people.filter(function(person){
     if(ht == person.height){
       return true;
     }
@@ -120,6 +146,7 @@ function searchByHt(people){
     }
     //return tallBoys;
   })
+  displayPeople(tallBoys);
 }
 
 // alerts a list of people

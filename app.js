@@ -12,12 +12,9 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      searchResults = searchByTrait(people);
+      searchResults = filterTraits(people);
       break;    
-    case '':
-      
-      
-      break;
+    
       default:
        app(people); // restart app
       break;
@@ -132,6 +129,16 @@ function searchByTrait(people){
     return searchResults;
 } 
 
+function filterTraits(people){
+  let personArray = people;
+  while(personArray.length > 1){
+    personArray = searchByTrait(personArray);
+    displayPeople(personArray);
+  }
+  let person = personArray[0];
+  return person;
+}
+
 function searchByOcc(people){
   let searchResults;
   let occupation = promptFor("What is their occupation? Enter the number Next to the occupation. 1. programmer 2. landscaper 3. assistant 4. doctor 5. politician 6. architect 7. student.", chars);
@@ -196,6 +203,9 @@ function searchByGender(people){
       break;
     case 'female':
       searchResults = findGender(people, 'female');
+      break;
+    default:
+      searchByGender(people);
   }
   return searchResults;
 }

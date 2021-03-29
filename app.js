@@ -113,22 +113,62 @@ function traitChoices(people){
         case 'height':
         searchResults = searchByHt(people);
         break;
-     /* switch(promptResult){
+     
         case 'weight':
         searchResults = searchByWgt(people);
-      switch(promptResult){
+        break;
+        
         case 'eyes':
         searchResults = searchByEye(people);
-      default:
-        traitChoices(people);
-      break;
+        break;
 
-    */      
+        default:
+        traitChoices(people);
+        break;
+
+         
       }  
 } 
-
+function findEyeColor(people, color){
+  
+  let peopleWithColor = people.filter(function(person){
+    if (person.eyeColor == color){
+      return true;
+    }
+    else{
+      return false;
+    }
+    
+  })
+  displayPeople(peopleWithColor);
+}
 function searchByEye(people){
+  let color = promptFor("What color eyes does the person you're looking for have?").toLowerCase();
+  switch(color){
+    case 'hazel':
+    findEyeColor(people, 'hazel');
+    break;
 
+    case 'blue':
+    findEyeColor(people, 'blue');
+    break; 
+
+    case 'black':
+      findEyeColor(people, 'black');
+      break;
+
+    case 'brown':
+      findEyeColor(people, 'brown');
+      break;
+
+    case 'green':
+      findEyeColor(people, 'green');
+      break;
+
+    default:
+      searchByEye(people);
+      break;
+  }
 }
 
 function searchByWgt(people){

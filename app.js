@@ -172,7 +172,16 @@ function searchByEye(people){
 }
 
 function searchByWgt(people){
-
+let wgt = promptFor("How much does the person you're looking for weigh?")
+let results = people.filter(function(person){
+  if(wgt == person.weight){
+    return true;
+  }
+  else{
+    return false;
+  }
+})
+    displayPeople(results);
 }
 
 function searchByHt(people){
@@ -184,7 +193,7 @@ function searchByHt(people){
     else{
       return false;
     }
-    //return tallBoys;
+    
   })
   displayPeople(tallBoys);
 }

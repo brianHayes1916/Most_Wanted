@@ -72,7 +72,7 @@ function displayFamily(parents, spouse, siblings){
 
 function findParents(person, people){
   let parents = people.filter(function(possibleParents){
-    if(person.parents == possibleParents.id){
+    if(person.parents[0] == possibleParents.id || person.parents[1] == possibleParents.id){
       return true;
     }
     else{
@@ -102,14 +102,22 @@ function findSpouse(person, people){
 
 function findSiblings(person, people){
   let siblings = people.filter(function(possibleSibs){
-    if(possibleSibs.parents == person.parents){
+    if(possibleSibs.parents[0] == person.parents[0] && person.id != possibleSibs.id){
       return true;
     }
     else{
       return false;
     }
   })
-  let fixedSiblings = (siblings.map(function(person){
+  let sibMinusPerson = siblings.filter(function(sib){
+    if (sib.id != person.id){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  let fixedSiblings = (sibMinusPerson.map(function(person){
     return person.firstName + " " + person.lastName;
   }).join("\n"));
   return fixedSiblings;
@@ -128,10 +136,16 @@ function searchByName(people){
     }
   })
   // TODO: find the person using the name they entered
-  let actualFoundPerson = foundPerson[0];
-  return actualFoundPerson;
+  return  foundPerson[0];
 }
-
+function otherDesc(person, people, descendantsAraay = [], generationLevel = 0){
+  people.map(function(el){
+    if(person.parents[0] == personWithDescendants.id || person.parents[1] == personWithDescendants.id){
+      descendantsAraay.push(el);
+      otherDesc(el, people, descendantsAraay)
+    }
+  })
+}
 function findDescendants(personWithDescendants, people){
   let grandchildren;
   let children = people.filter(function(person){
@@ -274,7 +288,8 @@ function findEyeColor(people, color){
 
 function searchByEye(people){
   let searchResults;
-  let color = promptFor("What color eyes does the person you're looking for have?" , chars).toLowerCase();
+  let color = promptFor("What color eyes does the person you're looking for have?" , eyeColorValidation).toLowerCase();
+  
   switch(color){
     case 'hazel':
       searchResults = findEyeColor(people, 'hazel');
@@ -325,6 +340,16 @@ function searchByHt(people){
   })
   return tallBoys;
 }
+searchByTraitNevin(people, "eyeColor", "blue")
+person['height'];
+
+function searchByTraitNevin(people, traitToSearch, valueOfTrait){
+  let results = people.filter(function(el){
+    if(el[traitToSearch] == valueOfTrait){
+      return true;
+    }
+  })
+}
 
 // alerts a list of people
 function displayPeople(people){
@@ -364,4 +389,7 @@ function yesNo(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+}
+function eyeColorValidation(input){
+
 }

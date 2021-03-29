@@ -42,23 +42,22 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    
-    displayPerson(person);
-    break;
+      displayPerson(person);
+      break;
     case "family":
-    findFamily(person);
-    break;
+      findFamily(person);
+      break;
     case "descendants":
       //people.filter(x => x.parents.filter(x => x.id == person.id))
     
-    break;
+      break;
     case "restart":
-    app(people); // restart
-    break;
+      app(people); // restart
+      break;
     case "quit":
-    return; // stop execution
+      return; // stop execution
     default:
-    return mainMenu(person, people); // ask again
+      return mainMenu(person, people); // ask again
   }
 }
 
@@ -107,28 +106,75 @@ function findDescendants(personWithDescendants, people){
   alert(personDescendants);
 }
 
-function traitChoices(people){
-  let promptResult = promptFor("Would you like to search by height, weight, or eyes?").toLowerCase();
+function searchByTrait(people){
+  let searchResults;
+  let promptResult = promptFor("Would you like to search by height, weight, gender, occupation, or eyes?", chars).toLowerCase();
       switch(promptResult){
         case 'height':
-        searchResults = searchByHt(people);
-        break;
-     
+          searchResults = searchByHt(people);
+          break;
         case 'weight':
-        searchResults = searchByWgt(people);
-        break;
-        
+          searchResults = searchByWgt(people);
+          break;
         case 'eyes':
-        searchResults = searchByEye(people);
-        break;
-
+          searchResults = searchByEye(people);
+          break;
+        case 'gender':
+          searchResults = searchByGender(people);
+          break;
+        case 'occupation':
+          searchResults = searchByOcc(people);
+          break;
         default:
-        traitChoices(people);
-        break;
-
-         
-      }  
+          searchByTrait(people);
+          break; 
+      }
+    return searchResults;
 } 
+
+function searchByOcc(people){
+  let searchResults;
+  let occupation = promptFor("What is their occupation? Enter the number Next to the occupation. 1. programmer 2. landscaper 3. assistant 4. doctor 5. politician 6. architect 7. student.", chars);
+  switch(occupation){
+    case '1':
+      searchResults = findOcc(people, 'programmer');
+      break;
+    case '2':
+      searchResults = findOcc(people, 'landscaper');
+      break;
+    case '3':
+      searchResults = findOcc(people, 'assistant');
+      break;
+    case '4':
+      searchResults = findOcc(people, 'doctor');
+      break;
+    case '5':
+      searchResults = findOcc(people, 'politician');
+      break;
+    case '6':
+      searchResults = findOcc(people, 'architect');
+      break;
+    case '7':
+      searchResults = findOcc(people, 'student');
+      break;
+    default:
+      searchByOcc(people);
+      break;
+  }
+  return searchResults;
+}
+function findOcc(people, occ){
+  let peopleWithOccupation = people.filter(function(person){
+    if (person.occupation == occ){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return peopleWithOccupation;
+}
+
 function findEyeColor(people, color){
   
   let peopleWithColor = people.filter(function(person){
@@ -138,41 +184,37 @@ function findEyeColor(people, color){
     else{
       return false;
     }
-    
   })
-  displayPeople(peopleWithColor);
+  return peopleWithColor;
 }
 function searchByEye(people){
-  let color = promptFor("What color eyes does the person you're looking for have?").toLowerCase();
+  let searchResults;
+  let color = promptFor("What color eyes does the person you're looking for have?" , chars).toLowerCase();
   switch(color){
     case 'hazel':
-    findEyeColor(people, 'hazel');
-    break;
-
+      searchResults = findEyeColor(people, 'hazel');
+      break;
     case 'blue':
-    findEyeColor(people, 'blue');
-    break; 
-
+      searchResults = findEyeColor(people, 'blue');
+      break; 
     case 'black':
-      findEyeColor(people, 'black');
+      searchResults = findEyeColor(people, 'black');
       break;
-
     case 'brown':
-      findEyeColor(people, 'brown');
+      searchResults = findEyeColor(people, 'brown');
       break;
-
     case 'green':
-      findEyeColor(people, 'green');
+      searchResults = findEyeColor(people, 'green');
       break;
-
     default:
-      searchByEye(people);
+      searchResults = searchByEye(people);
       break;
   }
+  return searchResults;
 }
 
 function searchByWgt(people){
-let wgt = promptFor("How much does the person you're looking for weigh?")
+let wgt = promptFor("How much does the person you're looking for weigh?", chars).parseInt();
 let results = people.filter(function(person){
   if(wgt == person.weight){
     return true;
@@ -181,11 +223,12 @@ let results = people.filter(function(person){
     return false;
   }
 })
-    displayPeople(results);
+    return results;
 }
 
 function searchByHt(people){
-  let ht = promptfor("How tall is the person you're looking for?").parseInt();
+  let ht = promptFor("How tall is the person you're looking for?", chars);
+  parseInt(ht);
   let tallBoys = people.filter(function(person){
     if(ht == person.height){
       return true;
@@ -195,7 +238,7 @@ function searchByHt(people){
     }
     
   })
-  displayPeople(tallBoys);
+  return tallBoys;
 }
 
 // alerts a list of people

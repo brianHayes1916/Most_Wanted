@@ -175,6 +175,31 @@ function findOcc(people, occ){
   return peopleWithOccupation;
 }
 
+function findGender(people, gen){
+  let peopleOfGender = people.filter(function(person){
+    if (person.gender == gen){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return peopleOfGender;
+}
+
+function searchByGender(people){
+  let searchResults;
+  let gen = promptFor("Is the person you're looking for male or female?", chars).toLowerCase();
+  switch(gen){
+    case 'male':
+      searchResults = findGender(people, 'male');
+      break;
+    case 'female':
+      searchResults = findGender(people, 'female');
+  }
+  return searchResults;
+}
+
 function findEyeColor(people, color){
   
   let peopleWithColor = people.filter(function(person){

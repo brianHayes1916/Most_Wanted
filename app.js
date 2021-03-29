@@ -44,7 +44,7 @@ function mainMenu(person, people){
       findFamily(person);
       break;
     case "descendants":
-      //people.filter(x => x.parents.filter(x => x.id == person.id))
+      findDescendants(person, people);
       break;
     case "restart":
       app(people); // restart
@@ -79,35 +79,23 @@ function searchByName(people){
 }
 
 function findDescendants(personWithDescendants, people){
+  let grandchildren;
   let children = people.filter(function(person){
-    if(person.parents == personWithDescendants.id){
+    if(person.parents[0] == personWithDescendants.id || person.parents[1] == personWithDescendants.id){
       return true;
     }
     else{
       return false;
     }
-  //let personDescendants = people.filter(function(person){
-    //if personwithdescendants's id is in a person's parents array, return true
-
-
-  //   if(person == people.parents.filter(function(person){
-  //     if(parents.includes(person.id)){
-  //       return true;
-  //     }
-  //     else{
-  //       return false;
-  //     }
-  //   })){
-  //     return true;
-  //   }
-  //   else{
-  //     return false;
-  //   }
+  
    }
   )
-let grandchildren = people.filter(function(person){
-  if()
-})
+  for(let i = 0; i < children.count; i++){
+    let child = children[i];
+    
+    grandchildren += findDescendants(child, people);
+  }
+  displayPeople(children, grandchildren);
 }
 
 function searchByTrait(people){

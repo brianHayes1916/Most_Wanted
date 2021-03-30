@@ -102,22 +102,17 @@ function findSpouse(person, people){
 
 function findSiblings(person, people){
   let siblings = people.filter(function(possibleSibs){
-    if(possibleSibs.parents[0] == person.parents[0] && person.id != possibleSibs.id){
+    if(possibleSibs.parents[0] == person.parents[0] && person.id != possibleSibs.id || 
+      possibleSibs.parents[1] != null && possibleSibs.parents[1] == person.parents[1] 
+      && person.id != possibleSibs.id){
       return true;
     }
     else{
       return false;
     }
   })
-  let sibMinusPerson = siblings.filter(function(sib){
-    if (sib.id != person.id){
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
-  let fixedSiblings = (sibMinusPerson.map(function(person){
+  
+  let fixedSiblings = (siblings.map(function(person){
     return person.firstName + " " + person.lastName;
   }).join("\n"));
   return fixedSiblings;
@@ -138,14 +133,7 @@ function searchByName(people){
   // TODO: find the person using the name they entered
   return  foundPerson[0];
 }
-function otherDesc(person, people, descendantsAraay = [], generationLevel = 0){
-  people.map(function(el){
-    if(person.parents[0] == personWithDescendants.id || person.parents[1] == personWithDescendants.id){
-      descendantsAraay.push(el);
-      otherDesc(el, people, descendantsAraay)
-    }
-  })
-}
+
 function findDescendants(personWithDescendants, people){
   let grandchildren;
   let children = people.filter(function(person){
@@ -288,7 +276,7 @@ function findEyeColor(people, color){
 
 function searchByEye(people){
   let searchResults;
-  let color = promptFor("What color eyes does the person you're looking for have?" , eyeColorValidation).toLowerCase();
+  let color = promptFor("What color eyes does the person you're looking for have?" , chars).toLowerCase();
   
   switch(color){
     case 'hazel':
@@ -340,16 +328,7 @@ function searchByHt(people){
   })
   return tallBoys;
 }
-searchByTraitNevin(people, "eyeColor", "blue")
-person['height'];
 
-function searchByTraitNevin(people, traitToSearch, valueOfTrait){
-  let results = people.filter(function(el){
-    if(el[traitToSearch] == valueOfTrait){
-      return true;
-    }
-  })
-}
 
 // alerts a list of people
 function displayPeople(people){
@@ -390,6 +369,4 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
-function eyeColorValidation(input){
 
-}
